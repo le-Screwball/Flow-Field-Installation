@@ -13,6 +13,7 @@ let particles = [];       //for the particles that flow in the field
 let flowfield;
 let moosic; 
 let amp;
+let camera;
 
 function preload() {
   moosic = loadSound("assets/Antagonistic Chris Cardena.mp3");
@@ -22,6 +23,9 @@ function preload() {
 
 function setup() {
   createCanvas(200, 200);
+
+  camera = createCapture(VIDEO);
+  camera.size(width, height);
 
   moosic.play();
   amp = new p5.Amplitude();
@@ -47,6 +51,8 @@ function draw() {
   background(50, 100);               //change alpha to control how long line residues stay
   // noStroke();
   
+  camera.loadPixels();
+
   let vol = amp.getLevel();
 
   let syncMag = map(vol, 0, 0.4, -0.4, 1.5);
@@ -72,11 +78,11 @@ function draw() {
       stroke(0, 30);                       //control how long line residues take to look full black
  
   
-      // push();                        //to see the flow of the field
-      // translate(x * scl, y * scl);      //to see the flow of the field
-      // rotate(v.heading());                 //to see the flow of the field
-      // line(0, 0, scl, 0);         //to see the flow of the field
-      // pop();                       //to see the flow of the field
+      push();                        //to see the flow of the field
+      translate(x * scl, y * scl);      //to see the flow of the field
+      rotate(v.heading());                 //to see the flow of the field
+      line(0, 0, scl, 0);         //to see the flow of the field
+      pop();                       //to see the flow of the field
 
       
     }
